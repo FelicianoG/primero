@@ -1,0 +1,31 @@
+body {
+  background: #ffa64d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.cardo {
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+
+  width: 400px;
+  padding: 60px;
+}
+
+.mini-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo {
+  font-size: 30px;
+  margin: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+.group {
+  padding: 20px;
+  padding-top: 0;
+}
