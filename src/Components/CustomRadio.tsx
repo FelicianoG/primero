@@ -9,6 +9,7 @@ interface CustomRadioProps {
   radioOptions: string[];
   handleRadio: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
+  required: boolean;
  
 }
 
@@ -17,13 +18,14 @@ export default function CustomRadio({
   radioOptions,
   handleRadio,
   value,
+  required,
  
 }: CustomRadioProps) {
   
   const RadioOption = (radioOptions: string[]) => {
     return radioOptions.map((rad:string, i:number) => {
       return (
-        <FormControlLabel value={rad} key={i} control={<Radio/>} label={rad} />
+        <FormControlLabel value={rad} key={i} control={<Radio required={required}/>} label={rad} />
       );
     });
   };

@@ -48,13 +48,13 @@ export default function CustomAutocompleteHook({
 
               inputValue={inputValue}
               onInputChange={(event, newInputValue) => {
-                console.log(newInputValue);
+                
                 setInputValue(newInputValue);
               }}
 
               options={options}
               sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label={label} />}
+              renderInput={(params) => <TextField required={required} {...params} label={label} />}
             />
       }
       />

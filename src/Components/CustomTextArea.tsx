@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 interface CustomTextAreaProps {
   label: string;
   estado: string;
+  required: boolean;
 
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
@@ -11,6 +12,7 @@ interface CustomTextAreaProps {
 export default function CustomTextArea({
   label,
   estado,
+  required,
 
   onChange
 }: CustomTextAreaProps) {
@@ -19,6 +21,7 @@ export default function CustomTextArea({
       <FormLabel>{label}</FormLabel>
       <TextField
       
+        required={required}
         sx={{ width: 250 }}
         multiline
         rows={4}

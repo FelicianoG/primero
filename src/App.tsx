@@ -15,11 +15,6 @@ import { FormControl} from "@mui/material";
 import { useForm } from "react-hook-form";
 import CustomAutocompleteHook from "./Components/CustomAutocompleteHook";
 
-type OptionItem = {
-  label: string;
-  year: number;
-};
-
 type Empleado = {
     firstName: string;
     lastName : string;
@@ -192,14 +187,6 @@ function App() {
     setState({ ...state, rating: value });
   }
 
-  function handleChangeAuto(
-    e:React.SyntheticEvent,
-    newValue: OptionItem | null
-  ) {
-    console.log(newValue)
-    setState({ ...state, pelicula: newValue });
-  }
-
   function handleRadio(e: React.ChangeEvent<HTMLInputElement>) {
     setState({ ...state, estadoCivil: e.target.value });
   }
@@ -222,7 +209,7 @@ function App() {
             opciones={[{valor:10,label:'diez'},{valor:20,label:'veinte'},{valor:30,label:'treinta'}]}
             control={control} 
             name='rangoEdad'
-            required={false}
+            required={true}
             label= "Rango de Edad"
           />
         </Grid>
@@ -231,7 +218,7 @@ function App() {
           <CustomTextField 
             control={control} 
             name='firstName'
-            required={false}
+            required={true}
             label= "Nombre"
           />
           </Grid>
@@ -240,7 +227,7 @@ function App() {
           <CustomTextField 
             control={control}
             name='lastName' 
-            required={false}
+            required={true}
             label= "Apellido"  
           />
           </Grid>
@@ -252,7 +239,7 @@ function App() {
                 label="Peliculas"
                 options={peliculas} 
                 required={true}  
-                //handleOnChange={handleChangeAuto}
+                
             />
           </Grid>
 
@@ -269,6 +256,7 @@ function App() {
             <CustomTextArea
               label="Comentarios"
               estado={state.area}
+              required={true}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                 handleAreaChange(e, "area")
               }
@@ -278,6 +266,7 @@ function App() {
           
           <Grid item xs={8}>
             <CustomRadio
+              required={true}
               groupTitle="Estado Civil"
               radioOptions={["Soltero", "Casado", "Divorciado"]}
               handleRadio={handleRadio}
@@ -286,7 +275,7 @@ function App() {
             />
           </Grid>
           <Grid item xs={8}>
-            <FormControl>
+            <FormControl required={true}>
               <FormLabel>Tecnologias: Elige al menos 2</FormLabel>
               <CustomCheckbox
                 label="React"
