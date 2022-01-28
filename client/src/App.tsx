@@ -3,25 +3,24 @@ import FormLabel from "@mui/material/FormLabel";
 import Card from "@mui/material/Card";
 import "./style.css";
 import Button from "@mui/material/Button";
-import CustomRadio from "./Components/CustomRadio";
+import CustomRadio from "./components/CustomRadio";
 import useCustomForm from "./Hooks/useCustomForm";
-import CustomTextField from "./Components/CustomTextField";
-import CustomCheckbox from "./Components/CustomCheckbox";
-import CustomSelect from "./Components/CustomSelect";
+import CustomTextField from "./components/CustomTextField";
+import CustomCheckbox from "./components/CustomCheckbox";
+import CustomSelect from "./components/CustomSelect";
 import Grid from "@mui/material/Grid";
-import CustomTextArea from "./Components/CustomTextArea";
-import CustomRating from "./Components/CustomRating";
-import { FormControl} from "@mui/material";
+import CustomTextArea from "./components/CustomTextArea";
+import CustomRating from "./components/CustomRating";
+import { FormControl } from "@mui/material";
 import { useForm } from "react-hook-form";
-import CustomAutocompleteHook from "./Components/CustomAutocompleteHook";
+import CustomAutocompleteHook from "./components/CustomAutocompleteHook";
 
 type Empleado = {
-    firstName: string;
-    lastName : string;
-    rangoEdad : 10 | 20 | 30 | '';
-    pelicula : string | null;
-  };
-
+  firstName: string;
+  lastName: string;
+  rangoEdad: 10 | 20 | 30 | "";
+  pelicula: string | null;
+};
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const peliculas = [
@@ -34,23 +33,23 @@ const peliculas = [
   { label: "Pulp Fiction", year: 1994 },
   {
     label: "The Lord of the Rings: The Return of the King",
-    year: 2003
+    year: 2003,
   },
   { label: "The Good, the Bad and the Ugly", year: 1966 },
   { label: "Fight Club", year: 1999 },
   {
     label: "The Lord of the Rings: The Fellowship of the Ring",
-    year: 2001
+    year: 2001,
   },
   {
     label: "Star Wars: Episode V - The Empire Strikes Back",
-    year: 1980
+    year: 1980,
   },
   { label: "Forrest Gump", year: 1994 },
   { label: "Inception", year: 2010 },
   {
     label: "The Lord of the Rings: The Two Towers",
-    year: 2002
+    year: 2002,
   },
   { label: "One Flew Over the Cuckoo's Nest", year: 1975 },
   { label: "Goodfellas", year: 1990 },
@@ -58,7 +57,7 @@ const peliculas = [
   { label: "Seven Samurai", year: 1954 },
   {
     label: "Star Wars: Episode IV - A New Hope",
-    year: 1977
+    year: 1977,
   },
   { label: "City of God", year: 2002 },
   { label: "Se7en", year: 1995 },
@@ -93,9 +92,8 @@ const peliculas = [
   { label: "Alien", year: 1979 },
   { label: "Sunset Boulevard", year: 1950 },
   {
-    label:
-      "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
-    year: 1964
+    label: "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
+    year: 1964,
   },
   { label: "The Great Dictator", year: 1940 },
   { label: "Cinema Paradiso", year: 1988 },
@@ -118,7 +116,7 @@ const peliculas = [
   { label: "Vertigo", year: 1958 },
   {
     label: "Star Wars: Episode VI - Return of the Jedi",
-    year: 1983
+    year: 1983,
   },
   { label: "Reservoir Dogs", year: 1992 },
   { label: "Braveheart", year: 1995 },
@@ -132,7 +130,7 @@ const peliculas = [
   { label: "Double Indemnity", year: 1944 },
   {
     label: "Eternal Sunshine of the Spotless Mind",
-    year: 2004
+    year: 2004,
   },
   { label: "Amadeus", year: 1984 },
   { label: "To Kill a Mockingbird", year: 1962 },
@@ -149,175 +147,119 @@ const peliculas = [
   { label: "Inglourious Basterds", year: 2009 },
   { label: "Snatch", year: 2000 },
   { label: "3 Idiots", year: 2009 },
-  { label: "Monty Python and the Holy Grail", year: 1975 }
+  { label: "Monty Python and the Holy Grail", year: 1975 },
 ];
 
-
 function App() {
-
   const [state, setState] = useCustomForm();
   const { control, handleSubmit } = useForm<Empleado>({
     defaultValues: {
-      firstName: '',
-      lastName : '',
-      rangoEdad : '',
+      firstName: "",
+      lastName: "",
+      rangoEdad: "",
       pelicula: null,
     },
-    
-    
   });
-  
+
   const onSubmit = (data: Empleado) => console.log(JSON.stringify(data, null, 2));
 
-  function handleCheck(e:React.ChangeEvent<HTMLInputElement>,value:string) {
-    
+  function handleCheck(e: React.ChangeEvent<HTMLInputElement>, value: string) {
     setState({ ...state, [value]: e.target.checked });
   }
 
-
-  function handleAreaChange(
-    e: React.ChangeEvent<HTMLTextAreaElement>,
-    text: string
-  ) {
+  function handleAreaChange(e: React.ChangeEvent<HTMLTextAreaElement>, text: string) {
     setState({ ...state, [text]: e.target.value });
   }
 
-  function handleRating(e:React.SyntheticEvent<Element, Event>, value:number) {
-    
+  function handleRating(e: React.SyntheticEvent<Element, Event>, value: number) {
     setState({ ...state, rating: value });
   }
 
   function handleRadio(e: React.ChangeEvent<HTMLInputElement>) {
     setState({ ...state, estadoCivil: e.target.value });
   }
-  
 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-      
-      <Card className="cardo">
-        
-        <Grid container spacing={2} marginLeft={6}>
-        
-        <Grid item xs={8}>
-            <FormLabel className="titulo">Forma de empleo</FormLabel>
-        </Grid>
+        <Card className="cardo">
+          <Grid container spacing={2} marginLeft={6}>
+            <Grid item xs={8}>
+              <FormLabel className="titulo">Forma de empleo</FormLabel>
+            </Grid>
 
-        <Grid item xs={8}>  
-          <CustomSelect
-            opciones={[{valor:10,label:'diez'},{valor:20,label:'veinte'},{valor:30,label:'treinta'}]}
-            control={control} 
-            name='rangoEdad'
-            required={true}
-            label= "Rango de Edad"
-          />
-        </Grid>
-        
-        <Grid item xs={8}>  
-          <CustomTextField 
-            control={control} 
-            name='firstName'
-            required={true}
-            label= "Nombre"
-          />
-          </Grid>
-
-          <Grid item xs={8}>  
-          <CustomTextField 
-            control={control}
-            name='lastName' 
-            required={true}
-            label= "Apellido"  
-          />
-          </Grid>
-      
-          <Grid item xs={8}>
-            <CustomAutocompleteHook
+            <Grid item xs={8}>
+              <CustomSelect
+                opciones={[
+                  { valor: 10, label: "diez" },
+                  { valor: 20, label: "veinte" },
+                  { valor: 30, label: "treinta" },
+                ]}
                 control={control}
-                name="pelicula"
-                label="Peliculas"
-                options={peliculas} 
-                required={true}  
-                
-            />
-          </Grid>
-
-          <Grid item xs={8}>
-            <CustomRating
-              label="Calidad"
-              value={state.rating}
-              onParentChange={handleRating}
-              
-            />
-          </Grid>
-
-          <Grid item xs={8}>
-            <CustomTextArea
-              label="Comentarios"
-              estado={state.area}
-              required={true}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                handleAreaChange(e, "area")
-              }
-             
-            />
-          </Grid>
-          
-          <Grid item xs={8}>
-            <CustomRadio
-              required={true}
-              groupTitle="Estado Civil"
-              radioOptions={["Soltero", "Casado", "Divorciado"]}
-              handleRadio={handleRadio}
-              value={state.estadoCivil}
-              
-            />
-          </Grid>
-          <Grid item xs={8}>
-            <FormControl required={true}>
-              <FormLabel>Tecnologias: Elige al menos 2</FormLabel>
-              <CustomCheckbox
-                label="React"
-                checked={state.tecReact}
-                onChanges={handleCheck}
-                value='tecReact'
-                
-                
+                name="rangoEdad"
+                required={true}
+                label="Rango de Edad"
               />
-              <CustomCheckbox
-                label="Python"
-                checked={state.tecPython}
-                onChanges={handleCheck}
-                value='tecPython'
-                
-                
-              />
-              <CustomCheckbox
-                label="Typescript"
-                checked={state.tecTypescript}
-                onChanges={handleCheck}
-                value='tecTypescript'
-                
-                
-              />
-            </FormControl>
-          </Grid>
+            </Grid>
 
-          <Grid item xs={8}>
-            <input type="file" />
+            <Grid item xs={8}>
+              <CustomTextField control={control} name="firstName" required={true} label="Nombre" />
+            </Grid>
+
+            <Grid item xs={8}>
+              <CustomTextField control={control} name="lastName" required={true} label="Apellido" />
+            </Grid>
+
+            <Grid item xs={8}>
+              <CustomAutocompleteHook control={control} name="pelicula" label="Peliculas" options={peliculas} required={true} />
+            </Grid>
+
+            <Grid item xs={8}>
+              <CustomRating label="Calidad" value={state.rating} onParentChange={handleRating} />
+            </Grid>
+
+            <Grid item xs={8}>
+              <CustomTextArea
+                label="Comentarios"
+                estado={state.area}
+                required={true}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleAreaChange(e, "area")}
+              />
+            </Grid>
+
+            <Grid item xs={8}>
+              <CustomRadio
+                required={true}
+                groupTitle="Estado Civil"
+                radioOptions={["Soltero", "Casado", "Divorciado"]}
+                handleRadio={handleRadio}
+                value={state.estadoCivil}
+              />
+            </Grid>
+            <Grid item xs={8}>
+              <FormControl required={true}>
+                <FormLabel>Tecnologias: Elige al menos 2</FormLabel>
+                <CustomCheckbox label="React" checked={state.tecReact} onChanges={handleCheck} value="tecReact" />
+                <CustomCheckbox label="Python" checked={state.tecPython} onChanges={handleCheck} value="tecPython" />
+                <CustomCheckbox label="Typescript" checked={state.tecTypescript} onChanges={handleCheck} value="tecTypescript" />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={8}>
+              <input type="file" />
+            </Grid>
+            <br />
+            <Grid item xs={8}>
+              <Button
+                type="submit"
+                variant="outlined"
+                //onClick={handleSubmitReact}
+              >
+                Submit
+              </Button>
+            </Grid>
           </Grid>
-          <br />
-          <Grid item xs={8}>
-            <Button type="submit" variant="outlined" 
-            //onClick={handleSubmitReact}
-            >
-              Submit
-            </Button>
-           
-          </Grid>
-        </Grid>
-      </Card>
+        </Card>
       </form>
     </div>
   );
