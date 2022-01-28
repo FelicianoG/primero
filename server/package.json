@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "our first api with nodejs and mongodb",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FelicianoG/primero.git"
+  },
+  "keywords": [
+    "nodejs",
+    "+",
+    "react",
+    "project"
+  ],
+  "author": "luis & feliciano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FelicianoG/primero/issues"
+  },
+  "homepage": "https://github.com/FelicianoG/primero#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2",
+    "mongodb": "^4.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.7.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1"
+  }
+}
