@@ -1,4 +1,5 @@
 import { Link, Outlet, Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
 import Empleado from "./pages/Empleados";
 
 const App = () => {
@@ -55,14 +56,6 @@ function About() {
   return (
     <div>
       <h2>About</h2>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
     </div>
   );
 }

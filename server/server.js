@@ -1,6 +1,7 @@
 
 // Web Application Server
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 4500;
 
@@ -17,22 +18,24 @@ MongoClient.connect('mongodb://localhost/primerodb', {useNewUrlParser: true, use
     collection = db.collection('empleado');
 });
 
+app.use(cors());
+
 app.listen(4500, function(){
     console.log('api listening on ' + port);
 });
 
-app.get('/', (req, res) => {
-    res.send("Hellow World");
+app.get('/api/test', (req, res) => {
+    res.send({message: "Hellow World"});
 });
 
-app.get('/empleado', (req, res) => {
+app.get('/api/empleado', (req, res) => {
     db.collection('empleado').find().toArray()
     .then(results => {
         res.json(results);
     }).catch(error => console.log(error));
 });
 
-app.post('/empleado', (req, res) => {
+app.post('/api/empleado', (req, res) => {
     collection.insertOne(req.body)
         .then(result => {
             res.json(result);
