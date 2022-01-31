@@ -34,13 +34,15 @@ export default function CustomAutocompleteHook({
     <Controller
         name={name}
         control={control}
-        render={({ field }) => 
+        rules={{required: `${name} requerido`}}
+        render={({ field, fieldState:{error} }) => 
         
             <Autocomplete
               // disablePortal
+              
               id={name}
+              
               {...field}
-              //value={field.value}
               onChange={(e,newValue:OptionItem)=>{field.onChange(newValue)}}
               
               //Checa, uno por uno y en orden, que el valor se encuentre dentro del arreglo opciones
@@ -54,7 +56,7 @@ export default function CustomAutocompleteHook({
 
               options={options}
               sx={{ width: 300 }}
-              renderInput={(params) => <TextField required={required} {...params} label={label} />}
+              renderInput={(params) => <TextField error={!!error} helperText={error ? error.message : null} {...params} label={label} />}
             />
       }
       />

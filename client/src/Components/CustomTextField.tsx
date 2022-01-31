@@ -4,7 +4,6 @@ import { Controller } from "react-hook-form";
 interface CustomTextfieldProps {
   
   control: any;
-  required: boolean;
   label: string;
   name:string;
 }
@@ -12,7 +11,6 @@ interface CustomTextfieldProps {
 export default function CustomTextfield({
   
   control,
-  required,
   label,
   name,
 
@@ -21,10 +19,10 @@ export default function CustomTextfield({
   return (
     <div>
       <Controller
-        
         name={name}
+        rules={{required: `${name} requerido`}}
         control={control}
-        render={({ field}) => <TextField required={required} label={label} {...field} />}
+        render={({ field, fieldState: {error} }) => <TextField error={!!error} helperText={error ? error.message : null} label={label} {...field } />}
       />
     </div>
   );

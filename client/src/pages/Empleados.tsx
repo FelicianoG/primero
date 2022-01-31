@@ -20,6 +20,7 @@ type Empleado = {
   lastName: string;
   rangoEdad: 10 | 20 | 30 | "";
   pelicula: string | null;
+  areaTexto:string;
 };
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
@@ -158,10 +159,11 @@ export default function Empleado() {
       lastName: "",
       rangoEdad: "",
       pelicula: null,
+      areaTexto:"",
     },
   });
 
-  const onSubmit = (data: Empleado) => console.log(JSON.stringify(data, null, 2));
+  const onSubmit = (data: Empleado) => { console.log(JSON.stringify(data, null, 2))}
 
   function handleCheck(e: React.ChangeEvent<HTMLInputElement>, value: string) {
     setState({ ...state, [value]: e.target.checked });
@@ -197,17 +199,17 @@ export default function Empleado() {
                 ]}
                 control={control}
                 name="rangoEdad"
-                required={true}
+                required={false}
                 label="Rango de Edad"
               />
             </Grid>
 
             <Grid item xs={8}>
-              <CustomTextField control={control} name="firstName" required={true} label="Nombre" />
+              <CustomTextField control={control} name="firstName" label="Nombre" />
             </Grid>
 
             <Grid item xs={8}>
-              <CustomTextField control={control} name="lastName" required={true} label="Apellido" />
+              <CustomTextField control={control} name="lastName" label="Apellido" />
             </Grid>
 
             <Grid item xs={8}>
@@ -220,9 +222,10 @@ export default function Empleado() {
 
             <Grid item xs={8}>
               <CustomTextArea
+                control={control}
+                name="areaTexto"
                 label="Comentarios"
                 estado={state.area}
-                required={true}
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleAreaChange(e, "area")}
               />
             </Grid>
