@@ -3,6 +3,7 @@ import { Controller} from "react-hook-form";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import { FormHelperText } from "@mui/material";
 
 type opciones = {
   valor: number;
@@ -14,7 +15,6 @@ interface CustomSelectHookProps {
     opciones:opciones[];
     control:any;
     name:string;
-    required:boolean;
     label:string;
    
 }
@@ -23,8 +23,7 @@ export default function CustomSelectHook({
 
     opciones,
     control,
-    name,
-    required,
+    name, 
     label,
 
 }: CustomSelectHookProps) {
@@ -34,14 +33,18 @@ export default function CustomSelectHook({
           <Controller
             name={name}
             control={control}
-            render={({ field }) => 
+            rules={{required : `${name} requerido`}}
+            render={({ field, fieldState: {error} }) => 
                 <FormControl fullWidth >
-                    <InputLabel id="labelId">{label}</InputLabel>
-                    <Select required={required} id="labelId" label={label} variant="outlined" {...field} >
+                    <InputLabel id="labelId" error={!!error}>{label}</InputLabel>
+                    <Select error={!!error} id="labelId" label={label} variant="outlined" {...field} >
                         {opciones.map((opcion, key) => 
                             <MenuItem key={key} value={opcion.valor}>{opcion.label}</MenuItem> )
                         }
                     </Select>
+                    <FormHelperText error={!!error}>
+                        {error ? `${name} requerido` : null}
+                    </FormHelperText>
                 </FormControl>}
             />
           

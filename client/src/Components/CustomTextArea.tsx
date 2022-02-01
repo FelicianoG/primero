@@ -23,7 +23,7 @@ export default function CustomTextArea({
   return (
     <>
       
-      <FormLabel>{label}</FormLabel>
+      
 
 
       <Controller 
@@ -32,6 +32,8 @@ export default function CustomTextArea({
         control={control}
         render={({ field, fieldState: {error} }) =>
       
+        <>
+        <FormLabel error={!!error}>{label}</FormLabel>
         <TextField
           sx={{ width: 250 }}
           multiline
@@ -40,6 +42,7 @@ export default function CustomTextArea({
           error={!!error}
           helperText={error ? error.message : null }
         />
+        </>
         }
       />
     </>

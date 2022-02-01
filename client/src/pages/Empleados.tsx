@@ -199,7 +199,6 @@ export default function Empleado() {
                 ]}
                 control={control}
                 name="rangoEdad"
-                required={false}
                 label="Rango de Edad"
               />
             </Grid>
