@@ -13,9 +13,8 @@ interface AutocompleteHookProps {
   name: string;
   label: string;
   control: any;
-  required: boolean;
+  required?: boolean; 
   options: OptionItem[];
-  //handleOnChange: (e:React.SyntheticEvent,newValue: OptionItem | null)=> void;
 }
 
 export default function CustomAutocompleteHook({
@@ -24,7 +23,7 @@ export default function CustomAutocompleteHook({
   control,
   required,
   options,
-  //handleOnChange,
+
 }: AutocompleteHookProps) {
   
   const [inputValue, setInputValue] = React.useState('');
@@ -34,26 +33,19 @@ export default function CustomAutocompleteHook({
     <Controller
         name={name}
         control={control}
-        rules={{required: `${name} requerido`}}
+        rules={{required: required ? "este campo es obligatorio" : undefined }}
         render={({ field, fieldState:{error} }) => 
         
             <Autocomplete
-              // disablePortal
-              
+
               id={name}
-              
               {...field}
               onChange={(e,newValue:OptionItem)=>{field.onChange(newValue)}}
-              
-              //Checa, uno por uno y en orden, que el valor se encuentre dentro del arreglo opciones
               isOptionEqualToValue={(option, value) => {return JSON.stringify(option) === JSON.stringify(value)}}
-
               inputValue={inputValue}
               onInputChange={(event, newInputValue) => {
-                
                 setInputValue(newInputValue);
               }}
-
               options={options}
               sx={{ width: 300 }}
               renderInput={(params) => <TextField error={!!error} helperText={error ? error.message : null} {...params} label={label} />}
