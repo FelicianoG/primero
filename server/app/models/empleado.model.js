@@ -1,25 +1,21 @@
-module.exports = mongoose => {
-    var schema = mongoose.Schema(
-        "empleado",
-        mongoose.Schema(
-            {
-                nombres: String,
-                apellidos: String,
-                edad: Number,
-                peliculas: String,
+const mongoose = require("mongoose");
+const empSchema = mongoose.Schema({
+                nombres: {type: String},
+                apellidos: {type: String},
+                edad:{type: Number},
+                peliculas:{type: String},
                 calidad: Number,
             },
             {timestamps : true}
         )
-    );
 
-    schema.method("toJSON", function() {
-        const { _id, ...object} = this.object();
+
+    empSchema.method("toJSON", function() {
+        const { _id, ...object} = this.toObject();
         object.id = _id;
         return object;
     });
     
-    const Empleado = mongoose.model("empleado", schema);
+    module.exports = mongoose.model("empleado", empSchema);
 
-    return Empleado;
-};
+    
