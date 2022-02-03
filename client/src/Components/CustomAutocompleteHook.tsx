@@ -3,7 +3,6 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Controller } from "react-hook-form";
 
-
 type OptionItem = {
   label: string;
   year: number;
@@ -24,41 +23,38 @@ export default function CustomAutocompleteHook({
   control,
   required,
   options,
-  //handleOnChange,
-}: AutocompleteHookProps) {
-  
-  const [inputValue, setInputValue] = React.useState('');
+}: //handleOnChange,
+AutocompleteHookProps) {
+  const [inputValue, setInputValue] = React.useState("");
 
   return (
     <>
-    <Controller
+      <Controller
         name={name}
         control={control}
-        rules={{required: `${name} requerido`}}
-        render={({ field, fieldState:{error} }) => 
-        
-            <Autocomplete
-              // disablePortal
-              
-              id={name}
-              
-              {...field}
-              onChange={(e,newValue:OptionItem)=>{field.onChange(newValue)}}
-              
-              //Checa, uno por uno y en orden, que el valor se encuentre dentro del arreglo opciones
-              isOptionEqualToValue={(option, value) => {return JSON.stringify(option) === JSON.stringify(value)}}
+        rules={{ required: `${name} requerido` }}
+        render={({ field, fieldState: { error } }) => (
+          <Autocomplete
+            // disablePortal
 
-              inputValue={inputValue}
-              onInputChange={(event, newInputValue) => {
-                
-                setInputValue(newInputValue);
-              }}
-
-              options={options}
-              sx={{ width: 300 }}
-              renderInput={(params) => <TextField error={!!error} helperText={error ? error.message : null} {...params} label={label} />}
-            />
-      }
+            id={name}
+            {...field}
+            onChange={(e, newValue: OptionItem) => {
+              field.onChange(newValue);
+            }}
+            //Checa, uno por uno y en orden, que el valor se encuentre dentro del arreglo opciones
+            isOptionEqualToValue={(option, value) => {
+              return JSON.stringify(option) === JSON.stringify(value);
+            }}
+            inputValue={inputValue}
+            onInputChange={(event, newInputValue) => {
+              setInputValue(newInputValue);
+            }}
+            options={options}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField error={!!error} helperText={error ? error.message : null} {...params} label={label} />}
+          />
+        )}
       />
     </>
   );
