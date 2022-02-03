@@ -4,20 +4,17 @@ import { Controller } from "react-hook-form";
 
 interface CustomTextAreaProps {
   label: string;
-  estado: string;
-
   name:string;
   control: any;
-
+  required?:boolean;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export default function CustomTextArea({
   label,
-  estado,
   name,
   control,
-
+  required,
   onChange
 }: CustomTextAreaProps) {
   return (
@@ -28,7 +25,7 @@ export default function CustomTextArea({
 
       <Controller 
         name={name}
-        rules={{required: `${name} requerido`}}
+        rules={{required: required ? "este campo es obligatorio" : undefined}}
         control={control}
         render={({ field, fieldState: {error} }) =>
       

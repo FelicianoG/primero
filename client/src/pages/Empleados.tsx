@@ -13,7 +13,7 @@ import CustomTextArea from "../components/CustomTextArea";
 import CustomRating from "../components/CustomRating";
 import { FormControl } from "@mui/material";
 import { useForm } from "react-hook-form";
-import CustomAutocompleteHook from "../components/CustomAutocompleteHook";
+import CustomAutocomplete from "../components/CustomAutocomplete";
 
 type Empleado = {
   firstName: string;
@@ -198,21 +198,22 @@ export default function Empleado() {
                   { valor: 30, label: "treinta" },
                 ]}
                 control={control}
+                required
                 name="rangoEdad"
                 label="Rango de Edad"
               />
             </Grid>
 
             <Grid item xs={8}>
-              <CustomTextField control={control} name="firstName" label="Nombre" />
+              <CustomTextField required control={control} name="firstName" label="Nombre" />
             </Grid>
 
             <Grid item xs={8}>
-              <CustomTextField control={control} name="lastName" label="Apellido" />
+              <CustomTextField required control={control} name="lastName" label="Apellido" />
             </Grid>
 
             <Grid item xs={8}>
-              <CustomAutocompleteHook control={control} name="pelicula" label="Peliculas" options={peliculas} required={true} />
+              <CustomAutocomplete control={control} name="pelicula" label="Peliculas" options={peliculas} required />
             </Grid>
 
             <Grid item xs={8}>
@@ -222,9 +223,9 @@ export default function Empleado() {
             <Grid item xs={8}>
               <CustomTextArea
                 control={control}
+                required
                 name="areaTexto"
                 label="Comentarios"
-                estado={state.area}
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleAreaChange(e, "area")}
               />
             </Grid>

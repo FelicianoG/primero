@@ -16,6 +16,7 @@ interface CustomSelectHookProps {
     control:any;
     name:string;
     label:string;
+    required?:boolean;
    
 }
 
@@ -25,6 +26,7 @@ export default function CustomSelectHook({
     control,
     name, 
     label,
+    required,
 
 }: CustomSelectHookProps) {
   
@@ -33,7 +35,7 @@ export default function CustomSelectHook({
           <Controller
             name={name}
             control={control}
-            rules={{required : `${name} requerido`}}
+            rules={{required : required ? 'este campo es obligatorio' : undefined}}
             render={({ field, fieldState: {error} }) => 
                 <FormControl fullWidth >
                     <InputLabel id="labelId" error={!!error}>{label}</InputLabel>
@@ -43,7 +45,7 @@ export default function CustomSelectHook({
                         }
                     </Select>
                     <FormHelperText error={!!error}>
-                        {error ? `${name} requerido` : null}
+                        {error ? error.message : null}
                     </FormHelperText>
                 </FormControl>}
             />
