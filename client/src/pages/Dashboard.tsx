@@ -1,11 +1,16 @@
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import React from "react";
 import axios from "../api/AxiosConfig";
+import DashboardService from "../services/dashboard.service";
 
 export default function Dashboard() {
   const [response, setResponse] = React.useState();
+  const service = new DashboardService();
   const sendRequest = () => {
-    axios.get("api/test/").then((res) => {
+        // axios.get("api/test/").then((res) => {
+    //   setResponse(res.data.message);
+    // });
+    service.get().then((res)=> {
       setResponse(res.data.message);
     });
   };

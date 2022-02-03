@@ -2,7 +2,8 @@ import http from '../api/AxiosConfig';
 
 class EmpleadoDataService {
 
-    getAll() {
+
+      getAll() {
         return http.get("/empleados");
       }
     
