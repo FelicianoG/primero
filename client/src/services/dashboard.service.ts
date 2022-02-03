@@ -1,8 +1,8 @@
-import http from '../api/AxiosConfig';
+import axios from '../api/AxiosConfig';
 
 class DashboardService {
     get(){
-        return http.get("/api/test");
+        return axios.get("/api/test");
     }
 }
 

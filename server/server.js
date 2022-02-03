@@ -20,7 +20,7 @@ app.use("/api/empleados", empleadosRoutes);
 app.use("/api/direcciones", direccionesRoutes);
 
 app.get('/api/test', (req, res) => {
-    res.send({message: "Hellow World"});
+    res.send({message: "Hellow World " + new Date()});
 });
 
 app.post("/api/test", (req, res) => {
