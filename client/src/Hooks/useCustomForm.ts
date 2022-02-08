@@ -3,9 +3,7 @@ import { useState } from "react";
 interface Estado {
   nombre: string | null;
   estadoCivil: string;
-  tecReact: boolean;
-  tecPython: boolean;
-  tecTypescript: boolean;
+  titulado: boolean;
   select: string;
   pelicula: string | null;
   area: string;
@@ -17,9 +15,7 @@ export default function useCustomForm(): [Estado, any] {
   const object: Estado = {
     nombre: null,
     estadoCivil: "Soltero",
-    tecReact: false,
-    tecPython: false,
-    tecTypescript: false,
+    titulado: false,
     select: '',
     pelicula: "",
     area: "",

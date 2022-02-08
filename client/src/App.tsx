@@ -1,4 +1,5 @@
 import { Link, Outlet, Route, Routes } from "react-router-dom";
+import CRUDEmpleados from "./pages/CRUDEmpleados";
 import Dashboard from "./pages/Dashboard";
 import Empleado from "./pages/Empleados";
 
@@ -7,7 +8,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="empleados" element={<Empleado />} />
+        <Route path="empleados" element={<CRUDEmpleados />} />
         <Route path="about" element={<About />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="*" element={<NoMatch />} />

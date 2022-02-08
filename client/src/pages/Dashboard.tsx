@@ -1,18 +1,17 @@
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import DashboardService from "../services/dashboard.service";
 
 export default function Dashboard() {
-  const [response, setResponse] = React.useState();
+  const [response, setResponse] = useState();
   
   const service = new DashboardService();
   
   const sendRequest = async () => {
       const res = await service.get();
       setResponse(res.data.message);
+     
   };
-
-  
 
   return (
     <>

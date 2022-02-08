@@ -1,35 +1,34 @@
-import http from '../api/AxiosConfig';
+import axios from '../api/AxiosConfig';
 
 class EmpleadoDataService {
 
-
       getAll() {
-        return http.get("/empleados");
+        return axios.get("/api/empleados");
       }
     
       get(id : string) {
-        return http.get(`/empleados/${id}`);
+       return axios.get(`/api/empleados/${id}`);
       }
     
       create(data : any) {
-        return http.post("/empleados", data);
+        return axios.post("/api/empleados", data);
       }
     
       update(id : string, data : any) {
-        return http.put(`/empleados/${id}`, data);
+        return axios.put(`/api/empleados/${id}`, data);
       }
     
       delete(id : string) {
-        return http.delete(`/empleados/${id}`);
+        return axios.delete(`/api/empleados/${id}`);
       }
     
       deleteAll() {
-        return http.delete(`/empleados`);
+        return axios.delete(`/api/empleados`);
       }
     
       findByTitle(nombres : string) {
-        return http.get(`/empleados?nombres=${nombres}`);
+        return axios.get(`/api/empleados?nombres=${nombres}`);
       }
 }
 
-export default new EmpleadoDataService();
+export default EmpleadoDataService;
