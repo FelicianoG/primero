@@ -1,5 +1,5 @@
 import Select from "@mui/material/Select";
-import { Controller} from "react-hook-form";
+import { Controller, useFormContext} from "react-hook-form";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
@@ -10,25 +10,22 @@ type opciones = {
   label: string;
 }
 
-interface CustomSelectHookProps {
-  
+interface CustomSelectProps {
     opciones:opciones[];
-    control:any;
     name:string;
     label:string;
     required?:boolean;
-   
 }
 
-export default function CustomSelectHook({
-
+export default function CustomSelect({
     opciones,
-    control,
     name, 
     label,
     required,
+}: CustomSelectProps) {
 
-}: CustomSelectHookProps) {
+    const formContext = useFormContext();
+    const { control } = formContext;
   
     return (
         <div>

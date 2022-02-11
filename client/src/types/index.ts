@@ -1,11 +1,10 @@
-import Empleado from "../pages/Empleados";
 
 type Empleado = {
-    nombres: string;
+    nombres?: string | undefined;
     apellidos: string;
-    edad: number;
+    edad: number | '';
     titulado: boolean;
-    id : string; 
+    id : string | undefined; 
   };
 
   export default Empleado;

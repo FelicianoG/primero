@@ -15,16 +15,7 @@ import { FormControl } from "@mui/material";
 import { useForm } from "react-hook-form";
 import CustomAutocomplete from "../components/CustomAutocomplete";
 import EmpleadoDataService from "../services/empleado.service";
-
-
-type Empleado = {
-  nombres: string;
-  apellidos: string;
-  edad: number;
-  // peliculas: string | null;
-  titulado: boolean;
- 
-};
+import Empleado from "../types";
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const peliculas = [
@@ -220,7 +211,7 @@ export default function Empleado() {
                   { valor: 20, label: "veinte" },
                   { valor: 30, label: "treinta" },
                 ]}
-                control={control}
+                
                 required
                 name="edad"
                 label="Rango de Edad"
@@ -228,15 +219,15 @@ export default function Empleado() {
             </Grid>
 
             <Grid item xs={8}>
-              <CustomTextField required control={control} name="nombres" label="Nombre" />
+              <CustomTextField required  name="nombres" label="Nombre" />
             </Grid>
 
             <Grid item xs={8}>
-              <CustomTextField required control={control} name="apellidos" label="Apellido" />
+              <CustomTextField required  name="apellidos" label="Apellido" />
             </Grid>
 
             <Grid item xs={8}>
-              <CustomAutocomplete control={control} name="peliculas" label="Peliculas" options={peliculas} required />
+              <CustomAutocomplete  name="peliculas" label="Peliculas" options={peliculas} required />
             </Grid>
 
             <Grid item xs={8}>
@@ -245,7 +236,7 @@ export default function Empleado() {
 
             <Grid item xs={8}>
               <CustomTextArea
-                control={control}
+                
                 required
                 name="areaTexto"
                 label="Comentarios"
@@ -259,13 +250,13 @@ export default function Empleado() {
                 groupTitle="Estado Civil"
                 radioOptions={["Soltero", "Casado", "Divorciado"]}
                 handleRadio={handleRadio}
-                value={state.estadoCivil}
+                
               />
             </Grid>
             <Grid item xs={8}>
               <FormControl required={true}>
                 <FormLabel>Titulado</FormLabel>
-                <CustomCheckbox label='' name= "titulado" control={control} checked={state.titulado} onChanges={handleCheck} value={false} />
+                <CustomCheckbox  name= "titulado"  onChanges={handleCheck} value={false} />
               </FormControl>
             </Grid>
 

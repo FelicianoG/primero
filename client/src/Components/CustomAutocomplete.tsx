@@ -1,7 +1,7 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 type OptionItem = {
   label: string;
@@ -11,12 +11,14 @@ type OptionItem = {
 interface AutocompleteHookProps {
   name: string;
   label: string;
-  control: any;
   required?: boolean;
   options: OptionItem[];
 }
 
-export default function CustomAutocompleteHook({ name, label, control, required, options }: AutocompleteHookProps) {
+export default function CustomAutocompleteHook({ name, label, required, options }: AutocompleteHookProps) {
+
+  const formContext = useFormContext();
+  const { control } = formContext;
   const [inputValue, setInputValue] = React.useState("");
 
   return (

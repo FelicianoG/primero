@@ -2,19 +2,25 @@ import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody
 import { useState , useEffect } from "react";
 import EmpleadoDataService from "../services/empleado.service";
 import Empleado from "../types";
+import { useNavigate } from "react-router-dom";
 
 interface ListaEmpleadosProps{
   handleEdit:any;
 }
 
 export default function ListaEmpleados({handleEdit}:ListaEmpleadosProps){
-    
+const navigate = useNavigate();
+
+const handleAgregarOnClick = () => {
+  console.log('ran handleAgregarOnClick')
+  navigate(`/empleado`);
+}
 const service = new EmpleadoDataService();
 
 const [ rows , setRows ] = useState<Empleado[]>();
 useEffect(()=> {
 
-    const sendPostRequest = async () => {
+    const getEmpleados = async () => {
         const res = await service.getAll();
         if(res){
             setRows(res.data);
@@ -23,15 +29,14 @@ useEffect(()=> {
             alert('error al cargar los datos');
         }
     };
-    sendPostRequest();
+    getEmpleados();
     
 },[]);
-
-
 
 return(
     <>
         <p>Lista de Empleados</p>
+        <Button onClick={ ()=> handleAgregarOnClick() } variant="outlined">+</Button>
         <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>

@@ -1,42 +1,31 @@
-import { useState } from "react";
-import Empleados from "./Empleados";
+import { useState, useEffect } from "react";
 import ListaEmpleados from "./ListaEmpleados";
+import EmpleadoDataService from "../services/empleado.service";
+import Empleado from "../types";
 import { useForm } from "react-hook-form";
-
-
-type Empleado = {
-    nombres: string;
-    apellidos: string;
-    edad: number | '';
-    titulado: boolean; 
-  };
+import EmpleadoEditor from "./EmpleadoEditor";
+import { useNavigate } from "react-router-dom";
 
 export default function CRUDEmpleados(){
-
-    const [myDefaultValues, setMyDefaultValues]= useState<Empleado> ( {
+    const navigate = useNavigate();
+    const { reset, setValue }  = useForm<Empleado>();
+    const [defaultValues, setDefaultValues]= useState<Empleado> ( {
         nombres: "",
         apellidos: "",
-        edad: '',
-        titulado: false,});
+        edad: "",
+        titulado: false,
+        id:undefined,
+    });
 
-    const [ toggleEditButton , setToggleEditButton ] = useState(false);
-    const [id , setId] = useState('');
+    function handleOnEditClick(id:string){
 
-    function editToggler(id:string){
-        setToggleEditButton(true)
-        setMyDefaultValues({
-            nombres: "F",
-            apellidos: "G",
-            edad: 20,
-            titulado: false,})
-            setId(id)
+        navigate(`/empleados/${id}`);
     }
-    const { setValue } = useForm<Empleado>();
-
-return (
-    <>
-        <Empleados id={id} myValues={myDefaultValues} toggleEditButton={toggleEditButton}/>
-        <ListaEmpleados handleEdit={(id:string)=>editToggler(id)} />
-    </>
-);
+   
+    return (
+        <>
+            {/* <EmpleadoEditor defaultValues={defaultValues} empleado={defaultValues}/> */}
+            <ListaEmpleados handleEdit={(id:string)=>handleOnEditClick(id)} />
+        </>
+    );
 };

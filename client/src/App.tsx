@@ -1,14 +1,18 @@
 import { Link, Outlet, Route, Routes } from "react-router-dom";
 import CRUDEmpleados from "./pages/CRUDEmpleados";
 import Dashboard from "./pages/Dashboard";
-import Empleado from "./pages/Empleados";
+import EmpleadoEditor from "./pages/EmpleadoEditor";
 
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="empleados" element={<CRUDEmpleados />} />
+        <Route path="empleados" element={<CRUDEmpleados />}>
+          <Route path=":id?" element={<EmpleadoEditor />}/>
+          
+        </Route>
+        <Route path="empleado" element={<EmpleadoEditor />}/>
         <Route path="about" element={<About />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="*" element={<NoMatch />} />

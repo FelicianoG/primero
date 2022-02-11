@@ -24,6 +24,5 @@ export default function useCustomForm(): [Estado, any] {
   };
 
   const [state, setState] = useState(object);
-
   return [state, setState];
 }

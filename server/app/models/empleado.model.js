@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const empSchema = mongoose.Schema({
+module.exports = mongoose => {
+    var empSchema = mongoose.Schema({
                 nombres: {type: String},
                 apellidos: {type: String},
                 edad:{type: Number},
@@ -16,6 +16,8 @@ const empSchema = mongoose.Schema({
         return object;
     });
     
-    module.exports = mongoose.model("empleado", empSchema);
-
     
+    const Empleado = mongoose.model("empleado", empSchema);
+    return Empleado;
+
+};

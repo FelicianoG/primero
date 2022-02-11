@@ -10,19 +10,19 @@ exports.create = (req, res) => {
   }
 
   // Create a Empleado
-  const Empleado = new Empleado({
+  const empleado = new Empleado({
     nombres: req.body.nombres,
     apellidos: req.body.apellidos,
+    edad: req.body.edad,
     titulado: req.body.titulado ? req.body.titulado : false
   });
 
   // Save Empleado in the database
-  Empleado
-    .save(Empleado)
+  empleado.save()
     .then(data => {
       res.send(data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while creating the Empleado."
@@ -72,7 +72,7 @@ exports.update = (req, res) => {
     });
   }
 
-  const id = req.params.id;
+  const id = req.body.id;
 
   Empleado.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
     .then(data => {

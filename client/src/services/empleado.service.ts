@@ -14,8 +14,8 @@ class EmpleadoDataService {
         return axios.post("/api/empleados", data);
       }
     
-      update(id : string, data : any) {
-        return axios.put(`/api/empleados/${id}`, data);
+      update( data : any) {
+        return axios.put(`/api/empleados/${data.id}`, data);
       }
     
       delete(id : string) {

@@ -22,6 +22,5 @@ export default function useCustomError(): [Error, any] {
   };
 
   const [state, setState] = useState(object);
-
   return [state, setState];
 }
