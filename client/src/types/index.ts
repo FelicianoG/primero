@@ -4,7 +4,7 @@ type Empleado = {
     apellidos: string;
     edad: number | '';
     titulado: boolean;
-    id : string | undefined; 
+    id? : string | undefined; 
   };
 
   export default Empleado;

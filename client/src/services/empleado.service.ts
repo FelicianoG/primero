@@ -1,4 +1,5 @@
 import axios from '../api/AxiosConfig';
+import Empleado from '../types';
 
 class EmpleadoDataService {
 
@@ -7,7 +8,7 @@ class EmpleadoDataService {
       }
     
       get(id : string) {
-       return axios.get(`/api/empleados/${id}`);
+       return axios.get<Empleado>(`/api/empleados/${id}`);
       }
     
       create(data : any) {

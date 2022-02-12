@@ -12,9 +12,9 @@ export default function ListaEmpleados({handleEdit}:ListaEmpleadosProps){
 const navigate = useNavigate();
 
 const handleAgregarOnClick = () => {
-  console.log('ran handleAgregarOnClick')
   navigate(`/empleado`);
 }
+
 const service = new EmpleadoDataService();
 
 const [ rows , setRows ] = useState<Empleado[]>();

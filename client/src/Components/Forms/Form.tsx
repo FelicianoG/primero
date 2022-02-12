@@ -8,22 +8,23 @@ interface FormProps{
     clearAfterSubmit?:boolean;
 }
 
-export default function Form({ defaultValues, onSubmit, children }:FormProps){
+export default function Form(props:FormProps){
 
     const methods = useForm<any>({
-        defaultValues: defaultValues ?? {}
+        defaultValues: props.defaultValues
     });
 
-    const onFormSubmit = (data:any) => {
-        onSubmit(data, methods.reset);
+    const onSubmit = (data:any) => {
+        props.onSubmit(data, methods.reset);
     };
 
-return (
-    <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onFormSubmit)} autoComplete= "off">
-            { children }
-        </form>
-    </FormProvider>
-)
+    return (
+        <FormProvider {...methods}>
+            {console.log('XX'+JSON.stringify(props.defaultValues,null,2))}
+            <form onSubmit={methods.handleSubmit(onSubmit)} autoComplete= "off">
+                { props.children }
+            </form>
+        </FormProvider>
+    )
 
 }
