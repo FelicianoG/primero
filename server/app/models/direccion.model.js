@@ -4,7 +4,6 @@ module.exports = mongoose =>{
                 calle: String,
                 numero: String,
                 colonia: String,
-                edad: Number,
                 cp: String,
                 ciudad: String,
                 estado: String,

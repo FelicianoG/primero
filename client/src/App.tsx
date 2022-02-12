@@ -1,7 +1,7 @@
 import { Link, Outlet, Route, Routes } from "react-router-dom";
-import CRUDEmpleados from "./pages/CRUDEmpleados";
+import CRUDEmpleados from "./pages/empleados/CRUDEmpleados";
 import Dashboard from "./pages/Dashboard";
-import EmpleadoEditor from "./pages/EmpleadoEditor";
+import EmpleadoEditor from "./pages/empleados/EmpleadoEditor";
 
 const App = () => {
   return (
