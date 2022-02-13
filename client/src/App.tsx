@@ -2,6 +2,8 @@ import { Link, Outlet, Route, Routes } from "react-router-dom";
 import CRUDEmpleados from "./pages/empleados/CRUDEmpleados";
 import Dashboard from "./pages/Dashboard";
 import EmpleadoEditor from "./pages/empleados/EmpleadoEditor";
+import CRUDDirecciones from "./pages/direcciones/CRUDDirecciones";
+import DireccionEditor from "./pages/direcciones/DireccionEditor";
 
 const App = () => {
   return (
@@ -11,6 +13,9 @@ const App = () => {
         <Route path="empleados" element={<CRUDEmpleados />}/>
         <Route path="empleados/:id" element={<EmpleadoEditor />}/>
         <Route path="empleado" element={<EmpleadoEditor />}/>
+        <Route path="direcciones" element={<CRUDDirecciones />}/>
+        <Route path="direcciones/:id" element={<DireccionEditor />}/>
+        <Route path="direccion" element={<DireccionEditor />}/>
         <Route path="about" element={<About />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="*" element={<NoMatch />} />
@@ -29,6 +34,9 @@ const Layout = () => {
           </li>
           <li>
             <Link to="/empleados">Empleados</Link>
+          </li>
+          <li>
+            <Link to="/direcciones">Direcciones</Link>
           </li>
           <li>
             <Link to="/about">About</Link>

@@ -3,9 +3,8 @@ import Card from "@mui/material/Card";
 import "../../style.css";
 import Button from "@mui/material/Button";
 import CustomTextField from "../../components/CustomTextField";
-import CustomSelect from "../../components/CustomSelect";
 import Grid from "@mui/material/Grid";
-import EmpleadoDataService from "../../services/empleado.service";
+import DireccionDataService from "../../services/direccion.service";
 import CustomHiddenField from "../../components/CustomHiddenField";
 import { useParams } from "react-router-dom";
 import Form from "../../components/Forms/Form";
@@ -14,20 +13,20 @@ import { Box } from "@mui/material";
 import Wait from "../../components/Wait";
 
 
-export default  function EmpleadoEditor(props:any) {
+export default  function DireccionEditor(props:any) {
   
   const params = useParams();
-  const empleadoId = params.id;
-  const service = new EmpleadoDataService();
+  const direccionId = params.id;
+  const service = new DireccionDataService();
   
-  const {data, isLoading} = useQuery(['getEmpleadoById', empleadoId],async ()=> (await service.get(empleadoId ?? '')).data,
-    { enabled: !!empleadoId}
+  const {data, isLoading} = useQuery(['getDireccionById', direccionId],async ()=> (await service.get(direccionId ?? '')).data,
+    { enabled: !!direccionId}
   );
 
   const onSubmit = (data: any) => { 
-    console.log(JSON.stringify(data, null, 2));
+    
     if(data.id === undefined ){
-      const crearEmpleado = async () => {
+      const crearDireccion = async () => {
         const res = await service.create(data);
         if (res) {
           alert('Se han guardado los datos');
@@ -36,11 +35,11 @@ export default  function EmpleadoEditor(props:any) {
           alert('error al guardar los datos: ');
         }
       };
-      crearEmpleado();
+      crearDireccion();
     }
 
     else{
-      const actualizarEmpleado = async () => {
+      const actualizarDireccion = async () => {
         const res = await service.update(data);
         if (res) {
           alert('Se han guardado los datos');
@@ -49,7 +48,7 @@ export default  function EmpleadoEditor(props:any) {
           alert('error al guardar los datos: ');
         }
       };
-      actualizarEmpleado();
+      actualizarDireccion();
      
     }
 
@@ -62,7 +61,7 @@ export default  function EmpleadoEditor(props:any) {
         <Card className="cardo">
           <Grid container spacing={2} marginLeft={6}>
             <Grid item xs={8}>
-              <FormLabel className="titulo">Forma de empleo</FormLabel>
+              <FormLabel className="titulo">Forma de direccion</FormLabel>
             </Grid>
 
             <Grid item xs={8}>
@@ -70,37 +69,40 @@ export default  function EmpleadoEditor(props:any) {
             </Grid>
 
             <Grid item xs={8}>
-              <CustomSelect
-                opciones={[
-                  { valor: 10, label: "diez" },
-                  { valor: 20, label: "veinte" },
-                  { valor: 30, label: "treinta" },
-                ]}
-               
-                required
-                name="edad"
-                label="Rango de Edad"
-              />
+              <CustomTextField required name="calle" label="Calle" />
             </Grid>
 
             <Grid item xs={8}>
-              <CustomTextField required name="nombres" label="Nombre" />
+              <CustomTextField required name="numero" label="Numero" />
             </Grid>
 
             <Grid item xs={8}>
-              <CustomTextField required name="apellidos" label="Apellido" />
+              <CustomTextField required name="colonia" label="Colonia" />
             </Grid>
 
-            {/* <Grid item xs={8}>
-              <FormControl required={true}>
-                <FormLabel>Titulado</FormLabel>
-                <CustomCheckbox name= "titulado" onChanges={handleCheck} value={false} />
-              </FormControl>
-            </Grid> */}
+            <Grid item xs={8}>
+              <CustomTextField required name="cp" label="CP" />
+            </Grid>
+
+            <Grid item xs={8}>
+              <CustomTextField required name="ciudad" label="Ciudad" />
+            </Grid>
+
+            <Grid item xs={8}>
+              <CustomTextField required name="estado" label="Estado" />
+            </Grid>
+
+            <Grid item xs={8}>
+              <CustomTextField required name="pais" label="País" />
+            </Grid>
+
 
             <Grid item xs={8}>
               <Button type="submit" variant="outlined">Guardar</Button>
             </Grid>
+
+
+
             {isLoading && <Box><span>Procesando..</span></Box>}
           </Grid>
         </Card>

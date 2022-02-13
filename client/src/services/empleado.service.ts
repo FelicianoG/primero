@@ -1,5 +1,5 @@
 import axios from '../api/AxiosConfig';
-import Empleado from '../types';
+import { Empleado } from '../types';
 
 class EmpleadoDataService {
 

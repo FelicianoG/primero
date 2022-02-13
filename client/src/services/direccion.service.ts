@@ -1,5 +1,5 @@
 import axios from '../api/AxiosConfig';
-import Direccion from '../types';
+import { Direccion } from '../types';
 
 class DireccionDataService {
 

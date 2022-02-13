@@ -15,6 +15,7 @@ type Empleado = {
     ciudad: string;
     estado: string;
     pais: string;
+    id? : string | undefined;
   }
 
-  export default Empleado;
+  export type {Direccion, Empleado}

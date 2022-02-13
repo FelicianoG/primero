@@ -13,14 +13,13 @@ exports.create = (req, res) => {
   
   // Create Direccion
   const direccion = new Direccion({
-  
     calle :req.body.calle,
     numero :req.body.numero,
     colonia : req.body.colonia,
     cp : req.body.cp,
-    ciudad : req.body.cuidad,
+    ciudad : req.body.ciudad,
     estado : req.body.estado,
-    pais : req.body.cuidad
+    pais : req.body.pais,
   });
   // // Save Direccion in the database
   direccion.save()
@@ -37,8 +36,10 @@ exports.create = (req, res) => {
 
 // Retrieve all Direcciones from the database.
 exports.findAll = (req, res) => {
-  
-  Direccion.find().toArray()
+  const calles = req.query.calle;
+  var condition = calles ? { title: { $regex: new RegExp(calles), $options: "i" } } : {};
+
+  Direccion.find(condition)
     .then(data => {
       res.send(data);
     })

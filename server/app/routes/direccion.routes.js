@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 
-const { create, findAll, update, findOne} = require('../controllers/direcciones.controller.js');
+const { create, findAll, update, findOne } = require('../controllers/direcciones.controller.js');
 
 router.get('/', findAll);
 
