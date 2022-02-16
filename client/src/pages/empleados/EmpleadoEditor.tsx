@@ -12,10 +12,13 @@ import Form from "../../components/Forms/Form";
 import { useQuery } from "react-query";
 import { Box } from "@mui/material";
 import Wait from "../../components/Wait";
+import { useNavigate } from "react-router-dom"
 
 
 export default  function EmpleadoEditor(props:any) {
   
+  const navegar = useNavigate();
+
   const params = useParams();
   const empleadoId = params.id;
   const service = new EmpleadoDataService();
@@ -30,7 +33,7 @@ export default  function EmpleadoEditor(props:any) {
       const crearEmpleado = async () => {
         const res = await service.create(data);
         if (res) {
-          alert('Se han guardado los datos');
+          navegar(`/empleados`);
         }
         else {
           alert('error al guardar los datos: ');
@@ -43,7 +46,7 @@ export default  function EmpleadoEditor(props:any) {
       const actualizarEmpleado = async () => {
         const res = await service.update(data);
         if (res) {
-          alert('Se han guardado los datos');
+          navegar(`/empleados`);
         }
         else {
           alert('error al guardar los datos: ');

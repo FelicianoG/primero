@@ -8,13 +8,14 @@ import DireccionDataService from "../../services/direccion.service";
 import CustomHiddenField from "../../components/CustomHiddenField";
 import { useParams } from "react-router-dom";
 import Form from "../../components/Forms/Form";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { Box } from "@mui/material";
 import Wait from "../../components/Wait";
+import { useNavigate } from "react-router-dom";
 
 
 export default  function DireccionEditor(props:any) {
-  
+  const navigate = useNavigate();
   const params = useParams();
   const direccionId = params.id;
   const service = new DireccionDataService();
@@ -22,27 +23,28 @@ export default  function DireccionEditor(props:any) {
   const {data, isLoading} = useQuery(['getDireccionById', direccionId],async ()=> (await service.get(direccionId ?? '')).data,
     { enabled: !!direccionId}
   );
+  const mutation = useMutation( request => 
+    {
+      return service.create(request);
+    })
 
   const onSubmit = (data: any) => { 
     
     if(data.id === undefined ){
-      const crearDireccion = async () => {
-        const res = await service.create(data);
-        if (res) {
-          alert('Se han guardado los datos');
+      const crearDireccion = async () => 
+        {
+          mutation.mutate(data);
+          navigate('/direcciones');
         }
-        else {
-          alert('error al guardar los datos: ');
-        }
-      };
-      crearDireccion();
-    }
+        crearDireccion();
+      }
 
     else{
       const actualizarDireccion = async () => {
         const res = await service.update(data);
-        if (res) {
-          alert('Se han guardado los datos');
+        if (!mutation.error) {
+          mutation.mutate(data);
+          navigate('/direcciones');
         }
         else {
           alert('error al guardar los datos: ');
@@ -56,57 +58,58 @@ export default  function DireccionEditor(props:any) {
 
   return (
     <div>
-      <Wait isLoading={isLoading}>
-      <Form defaultValues={data} onSubmit={onSubmit}>
-        <Card className="cardo">
-          <Grid container spacing={2} marginLeft={6}>
-            <Grid item xs={8}>
-              <FormLabel className="titulo">Forma de direccion</FormLabel>
+
+       <Wait isLoading={isLoading}>
+        <Form defaultValues={data} onSubmit={onSubmit}>
+          <Card className="cardo">
+            <Grid container spacing={2} marginLeft={6}>
+              <Grid item xs={8}>
+                <FormLabel className="titulo">Forma de direccion</FormLabel>
+              </Grid>
+
+              <Grid item xs={8}>
+                <CustomHiddenField name='id'/>
+              </Grid>
+
+              <Grid item xs={8}>
+                <CustomTextField required name="calle" label="Calle" />
+              </Grid>
+
+              <Grid item xs={8}>
+                <CustomTextField required name="numero" label="Numero" />
+              </Grid>
+
+              <Grid item xs={8}>
+                <CustomTextField required name="colonia" label="Colonia" />
+              </Grid>
+
+              <Grid item xs={8}>
+                <CustomTextField required name="cp" label="CP" />
+              </Grid>
+
+              <Grid item xs={8}>
+                <CustomTextField required name="ciudad" label="Ciudad" />
+              </Grid>
+
+              <Grid item xs={8}>
+                <CustomTextField required name="estado" label="Estado" />
+              </Grid>
+
+              <Grid item xs={8}>
+                <CustomTextField required name="pais" label="País" />
+              </Grid>
+
+
+              <Grid item xs={8}>
+                <Button type="submit" variant="outlined">Guardar</Button>
+              </Grid>
+
+
+
+              {isLoading && <Box><span>Procesando..</span></Box>}
             </Grid>
-
-            <Grid item xs={8}>
-              <CustomHiddenField name='id'/>
-            </Grid>
-
-            <Grid item xs={8}>
-              <CustomTextField required name="calle" label="Calle" />
-            </Grid>
-
-            <Grid item xs={8}>
-              <CustomTextField required name="numero" label="Numero" />
-            </Grid>
-
-            <Grid item xs={8}>
-              <CustomTextField required name="colonia" label="Colonia" />
-            </Grid>
-
-            <Grid item xs={8}>
-              <CustomTextField required name="cp" label="CP" />
-            </Grid>
-
-            <Grid item xs={8}>
-              <CustomTextField required name="ciudad" label="Ciudad" />
-            </Grid>
-
-            <Grid item xs={8}>
-              <CustomTextField required name="estado" label="Estado" />
-            </Grid>
-
-            <Grid item xs={8}>
-              <CustomTextField required name="pais" label="País" />
-            </Grid>
-
-
-            <Grid item xs={8}>
-              <Button type="submit" variant="outlined">Guardar</Button>
-            </Grid>
-
-
-
-            {isLoading && <Box><span>Procesando..</span></Box>}
-          </Grid>
-        </Card>
-      </Form>
+          </Card>
+        </Form>
       </Wait>
     </div>
   );
