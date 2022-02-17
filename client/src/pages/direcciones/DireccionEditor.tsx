@@ -13,53 +13,38 @@ import { Box } from "@mui/material";
 import Wait from "../../components/Wait";
 import { useNavigate } from "react-router-dom";
 
-
-export default  function DireccionEditor(props:any) {
+export default function DireccionEditor(props: any) {
   const navigate = useNavigate();
   const params = useParams();
   const direccionId = params.id;
   const service = new DireccionDataService();
-  
-  const {data, isLoading} = useQuery(['getDireccionById', direccionId],async ()=> (await service.get(direccionId ?? '')).data,
-    { enabled: !!direccionId}
+
+  const { data, isLoading } = useQuery(
+    ["getDireccionById", direccionId],
+    async () => (await service.get(direccionId ?? "")).data,
+    { enabled: !!direccionId }
   );
-  const mutation = useMutation( request => 
-    {
-      return service.create(request);
-    })
+  const createMutation = useMutation<any, any, any, any>(
+    async (data) => await service.create(data)
+  );
 
-  const onSubmit = (data: any) => { 
-    
-    if(data.id === undefined ){
-      const crearDireccion = async () => 
-        {
-          mutation.mutate(data);
-          navigate('/direcciones');
-        }
-        crearDireccion();
-      }
+  const updateMutation = useMutation<any, any, any, any>(
+    async (data) => await service.update(data)
+  );
 
-    else{
-      const actualizarDireccion = async () => {
-        const res = await service.update(data);
-        if (!mutation.error) {
-          mutation.mutate(data);
-          navigate('/direcciones');
-        }
-        else {
-          alert('error al guardar los datos: ');
-        }
-      };
-      actualizarDireccion();
-     
+  const onSubmit = (data: any) => {
+    if (data.id === undefined) {
+      createMutation.mutate(data);
+      navigate("/direcciones");
+    } else {
+      updateMutation.mutate(data);
+      navigate("/direcciones");
     }
-
-  }
+  };
 
   return (
     <div>
-
-       <Wait isLoading={isLoading}>
+      <Wait isLoading={isLoading}>
         <Form defaultValues={data} onSubmit={onSubmit}>
           <Card className="cardo">
             <Grid container spacing={2} marginLeft={6}>
@@ -68,7 +53,7 @@ export default  function DireccionEditor(props:any) {
               </Grid>
 
               <Grid item xs={8}>
-                <CustomHiddenField name='id'/>
+                <CustomHiddenField name="id" />
               </Grid>
 
               <Grid item xs={8}>
@@ -99,14 +84,27 @@ export default  function DireccionEditor(props:any) {
                 <CustomTextField required name="pais" label="País" />
               </Grid>
 
-
               <Grid item xs={8}>
-                <Button type="submit" variant="outlined">Guardar</Button>
+                <Button type="submit" variant="outlined">
+                  Guardar
+                </Button>
               </Grid>
 
-
-
-              {isLoading && <Box><span>Procesando..</span></Box>}
+              {updateMutation.isSuccess && (
+                <Box>
+                  <span>Todo bien!</span>
+                </Box>
+              )}
+              {updateMutation.isError && (
+                <Box>
+                  <span>Error!!!!</span>
+                </Box>
+              )}
+              {isLoading && (
+                <Box>
+                  <span>Procesando..</span>
+                </Box>
+              )}
             </Grid>
           </Card>
         </Form>
