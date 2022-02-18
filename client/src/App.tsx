@@ -4,18 +4,26 @@ import Dashboard from "./pages/Dashboard";
 import EmpleadoEditor from "./pages/empleados/EmpleadoEditor";
 import CRUDDirecciones from "./pages/direcciones/CRUDDirecciones";
 import DireccionEditor from "./pages/direcciones/DireccionEditor";
+import CRUDProductos from "./pages/productos/CRUDProductos";
+import ProductoEditor from "./pages/productos/ProductoEditor";
 
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="empleados" element={<CRUDEmpleados />}/>
-        <Route path="empleados/:id" element={<EmpleadoEditor />}/>
-        <Route path="empleado" element={<EmpleadoEditor />}/>
-        <Route path="direcciones" element={<CRUDDirecciones />}/>
-        <Route path="direcciones/:id" element={<DireccionEditor />}/>
-        <Route path="direccion" element={<DireccionEditor />}/>
+        <Route path="empleados" element={<CRUDEmpleados />} />
+        <Route path="empleados/:id" element={<EmpleadoEditor />} />
+        <Route path="empleado" element={<EmpleadoEditor />} />
+
+        <Route path="direcciones" element={<CRUDDirecciones />} />
+        <Route path="direcciones/:id" element={<DireccionEditor />} />
+        <Route path="direccion" element={<DireccionEditor />} />
+
+        <Route path="productos" element={<CRUDProductos />} />
+        <Route path="productos/:id" element={<ProductoEditor />} />
+        <Route path="producto" element={<ProductoEditor />} />
+
         <Route path="about" element={<About />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="*" element={<NoMatch />} />
@@ -37,6 +45,9 @@ const Layout = () => {
           </li>
           <li>
             <Link to="/direcciones">Direcciones</Link>
+          </li>
+          <li>
+            <Link to="/productos">Productos</Link>
           </li>
           <li>
             <Link to="/about">About</Link>

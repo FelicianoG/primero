@@ -8,9 +8,9 @@ import {
   TableBody,
   Button,
 } from "@mui/material";
-import { useState, useEffect } from "react";
 import { Direccion } from "../../types";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 import DireccionDataService from "../../services/direccion.service";
 
 interface ListaEmpleadosProps {
@@ -26,19 +26,10 @@ export default function ListaEmpleados({ handleEdit }: ListaEmpleadosProps) {
 
   const service = new DireccionDataService();
 
-  const [rows, setRows] = useState<Direccion[]>();
-
-  useEffect(() => {
-    const getDirecciones = async () => {
-      const res = await service.getAll();
-      if (res) {
-        setRows(res.data);
-      } else {
-        alert("error al cargar los datos");
-      }
-    };
-    getDirecciones();
-  }, []);
+  const { data } = useQuery(
+    ["getDirecciones"],
+    async () => (await service.getAll()).data
+  );
 
   return (
     <>
@@ -60,8 +51,8 @@ export default function ListaEmpleados({ handleEdit }: ListaEmpleadosProps) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows ? (
-              rows.map((row) => (
+            {data ? (
+              data.map((row: Direccion) => (
                 <TableRow
                   key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

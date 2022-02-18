@@ -3,9 +3,8 @@ import Card from "@mui/material/Card";
 import "../../style.css";
 import Button from "@mui/material/Button";
 import CustomTextField from "../../components/CustomTextField";
-import CustomSelect from "../../components/CustomSelect";
 import Grid from "@mui/material/Grid";
-import EmpleadoDataService from "../../services/empleado.service";
+import ProductoDataService from "../../services/producto.service";
 import CustomHiddenField from "../../components/CustomHiddenField";
 import { useParams } from "react-router-dom";
 import Form from "../../components/Forms/Form";
@@ -14,16 +13,16 @@ import { Box } from "@mui/material";
 import Wait from "../../components/Wait";
 import { useNavigate } from "react-router-dom";
 
-export default function EmpleadoEditor(props: any) {
+export default function ProductoEditor(props: any) {
   const navegar = useNavigate();
   const params = useParams();
-  const empleadoId = params.id;
-  const service = new EmpleadoDataService();
+  const ProductoId = params.id;
+  const service = new ProductoDataService();
 
   const { data, isLoading } = useQuery(
-    ["getEmpleadoById", empleadoId],
-    async () => (await service.get(empleadoId ?? "")).data,
-    { enabled: !!empleadoId }
+    ["getProductoById", ProductoId],
+    async () => (await service.get(ProductoId ?? "")).data,
+    { enabled: !!ProductoId }
   );
 
   const createMutation = useMutation<any, any, any, any>(
@@ -37,10 +36,10 @@ export default function EmpleadoEditor(props: any) {
   const onSubmit = (data: any) => {
     if (data.id === undefined) {
       createMutation.mutate(data);
-      navegar("/empleados");
+      navegar("/Productos");
     } else {
       updateMutation.mutate(data);
-      navegar("/empleados");
+      navegar("/Productos");
     }
   };
 
@@ -51,7 +50,7 @@ export default function EmpleadoEditor(props: any) {
           <Card className="cardo">
             <Grid container spacing={2} marginLeft={6}>
               <Grid item xs={8}>
-                <FormLabel className="titulo">Forma de empleo</FormLabel>
+                <FormLabel className="titulo">Forma de Producto</FormLabel>
               </Grid>
 
               <Grid item xs={8}>
@@ -59,24 +58,15 @@ export default function EmpleadoEditor(props: any) {
               </Grid>
 
               <Grid item xs={8}>
-                <CustomSelect
-                  opciones={[
-                    { valor: 10, label: "diez" },
-                    { valor: 20, label: "veinte" },
-                    { valor: 30, label: "treinta" },
-                  ]}
-                  required
-                  name="edad"
-                  label="Rango de Edad"
-                />
+                <CustomTextField required name="nombre" label="Nombre" />
               </Grid>
 
               <Grid item xs={8}>
-                <CustomTextField required name="nombres" label="Nombre" />
+                <CustomTextField required name="codigo" label="Codigo" />
               </Grid>
 
               <Grid item xs={8}>
-                <CustomTextField required name="apellidos" label="Apellido" />
+                <CustomTextField required name="peso" label="Peso" />
               </Grid>
 
               <Grid item xs={8}>

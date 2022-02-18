@@ -18,4 +18,11 @@ type Empleado = {
     id? : string | undefined;
   }
 
-  export type {Direccion, Empleado}
+  type Producto = {
+    nombre: string | undefined;
+    codigo: number;
+    peso: number;
+    id?: string;
+  }
+
+  export type {Direccion, Empleado, Producto}

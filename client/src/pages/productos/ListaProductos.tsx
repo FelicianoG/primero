@@ -8,30 +8,30 @@ import {
   TableBody,
   Button,
 } from "@mui/material";
-import EmpleadoDataService from "../../services/empleado.service";
-import { Empleado } from "../../types";
+import ProductoDataService from "../../services/producto.service";
+import { Producto } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 
-interface ListaEmpleadosProps {
+interface ListaProductosProps {
   handleEdit: any;
 }
 
-export default function ListaEmpleados({ handleEdit }: ListaEmpleadosProps) {
+export default function ListaProductos({ handleEdit }: ListaProductosProps) {
   const navigate = useNavigate();
   const handleAgregarOnClick = () => {
-    navigate(`/empleado`);
+    navigate(`/producto`);
   };
 
-  const service = new EmpleadoDataService();
+  const service = new ProductoDataService();
   const { data } = useQuery(
-    ["getEmpleados"],
+    ["getProductos"],
     async () => (await service.getAll()).data
   );
 
   return (
     <>
-      <p>Lista de Empleados</p>
+      <p>Lista de Productos</p>
       <Button onClick={() => handleAgregarOnClick()} variant="outlined">
         +
       </Button>
@@ -47,16 +47,16 @@ export default function ListaEmpleados({ handleEdit }: ListaEmpleadosProps) {
           </TableHead>
           <TableBody>
             {data ? (
-              data.map((row: Empleado) => (
+              data.map((row: Producto) => (
                 <TableRow
                   key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {row.nombres}
+                    {row.nombre}
                   </TableCell>
-                  <TableCell align="right">{row.apellidos}</TableCell>
-                  <TableCell align="right">{row.edad}</TableCell>
+                  <TableCell align="right">{row.codigo}</TableCell>
+                  <TableCell align="right">{row.peso}</TableCell>
                   <TableCell align="right">
                     <Button
                       onClick={() => handleEdit(row.id)}
