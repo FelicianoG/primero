@@ -2,16 +2,19 @@ import FormLabel from "@mui/material/FormLabel";
 import Card from "@mui/material/Card";
 import "../../style.css";
 import Button from "@mui/material/Button";
-import CustomTextField from "../../components/CustomTextField";
+
 import Grid from "@mui/material/Grid";
 import ProductoDataService from "../../services/producto.service";
-import CustomHiddenField from "../../components/CustomHiddenField";
+
 import { useParams } from "react-router-dom";
-import Form from "../../components/Forms/Form";
+
 import { useQuery, useMutation } from "react-query";
 import { Box } from "@mui/material";
-import Wait from "../../components/Wait";
+
 import { useNavigate } from "react-router-dom";
+import { CustomTextField, Wait } from "../../Components";
+import Form from "../../Components/Forms/Form";
+import CustomHiddenField from "../../Components/CustomHiddenField";
 
 export default function ProductoEditor(props: any) {
   const navegar = useNavigate();
@@ -19,19 +22,13 @@ export default function ProductoEditor(props: any) {
   const ProductoId = params.id;
   const service = new ProductoDataService();
 
-  const { data, isLoading } = useQuery(
-    ["getProductoById", ProductoId],
-    async () => (await service.get(ProductoId ?? "")).data,
-    { enabled: !!ProductoId }
-  );
+  const { data, isLoading } = useQuery(["getProductoById", ProductoId], async () => (await service.get(ProductoId ?? "")).data, {
+    enabled: !!ProductoId,
+  });
 
-  const createMutation = useMutation<any, any, any, any>(
-    async (data) => await service.create(data)
-  );
+  const createMutation = useMutation<any, any, any, any>(async (data) => await service.create(data));
 
-  const updateMutation = useMutation<any, any, any, any>(
-    async (data) => await service.update(data)
-  );
+  const updateMutation = useMutation<any, any, any, any>(async (data) => await service.update(data));
 
   const onSubmit = (data: any) => {
     if (data.id === undefined) {

@@ -2,16 +2,20 @@ import FormLabel from "@mui/material/FormLabel";
 import Card from "@mui/material/Card";
 import "../../style.css";
 import Button from "@mui/material/Button";
-import CustomTextField from "../../components/CustomTextField";
+
 import Grid from "@mui/material/Grid";
 import DireccionDataService from "../../services/direccion.service";
-import CustomHiddenField from "../../components/CustomHiddenField";
+
 import { useParams } from "react-router-dom";
-import Form from "../../components/Forms/Form";
+
 import { useQuery, useMutation } from "react-query";
 import { Box } from "@mui/material";
-import Wait from "../../components/Wait";
+
 import { useNavigate } from "react-router-dom";
+import Wait from "../../Components/Wait";
+import Form from "../../Components/Forms/Form";
+import CustomHiddenField from "../../Components/CustomHiddenField";
+import CustomTextField from "../../Components/CustomTextField";
 
 export default function DireccionEditor(props: any) {
   const navigate = useNavigate();
@@ -19,18 +23,12 @@ export default function DireccionEditor(props: any) {
   const direccionId = params.id;
   const service = new DireccionDataService();
 
-  const { data, isLoading } = useQuery(
-    ["getDireccionById", direccionId],
-    async () => (await service.get(direccionId ?? "")).data,
-    { enabled: !!direccionId }
-  );
-  const createMutation = useMutation<any, any, any, any>(
-    async (data) => await service.create(data)
-  );
+  const { data, isLoading } = useQuery(["getDireccionById", direccionId], async () => (await service.get(direccionId ?? "")).data, {
+    enabled: !!direccionId,
+  });
+  const createMutation = useMutation<any, any, any, any>(async (data) => await service.create(data));
 
-  const updateMutation = useMutation<any, any, any, any>(
-    async (data) => await service.update(data)
-  );
+  const updateMutation = useMutation<any, any, any, any>(async (data) => await service.update(data));
 
   const onSubmit = (data: any) => {
     if (data.id === undefined) {

@@ -2,17 +2,21 @@ import FormLabel from "@mui/material/FormLabel";
 import Card from "@mui/material/Card";
 import "../../style.css";
 import Button from "@mui/material/Button";
-import CustomTextField from "../../components/CustomTextField";
-import CustomSelect from "../../components/CustomSelect";
+
 import Grid from "@mui/material/Grid";
 import EmpleadoDataService from "../../services/empleado.service";
-import CustomHiddenField from "../../components/CustomHiddenField";
+
 import { useParams } from "react-router-dom";
-import Form from "../../components/Forms/Form";
+
 import { useQuery, useMutation } from "react-query";
 import { Box } from "@mui/material";
-import Wait from "../../components/Wait";
+
 import { useNavigate } from "react-router-dom";
+import Wait from "../../Components/Wait";
+import Form from "../../Components/Forms/Form";
+import CustomHiddenField from "../../Components/CustomHiddenField";
+import CustomSelect from "../../Components/CustomSelect";
+import CustomTextField from "../../Components/CustomTextField";
 
 export default function EmpleadoEditor(props: any) {
   const navegar = useNavigate();
@@ -20,19 +24,13 @@ export default function EmpleadoEditor(props: any) {
   const empleadoId = params.id;
   const service = new EmpleadoDataService();
 
-  const { data, isLoading } = useQuery(
-    ["getEmpleadoById", empleadoId],
-    async () => (await service.get(empleadoId ?? "")).data,
-    { enabled: !!empleadoId }
-  );
+  const { data, isLoading } = useQuery(["getEmpleadoById", empleadoId], async () => (await service.get(empleadoId ?? "")).data, {
+    enabled: !!empleadoId,
+  });
 
-  const createMutation = useMutation<any, any, any, any>(
-    async (data) => await service.create(data)
-  );
+  const createMutation = useMutation<any, any, any, any>(async (data) => await service.create(data));
 
-  const updateMutation = useMutation<any, any, any, any>(
-    async (data) => await service.update(data)
-  );
+  const updateMutation = useMutation<any, any, any, any>(async (data) => await service.update(data));
 
   const onSubmit = (data: any) => {
     if (data.id === undefined) {

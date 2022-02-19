@@ -1,13 +1,13 @@
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 
 interface WaitProps {
-    isLoading: boolean;
-    children?: React.ReactNode;
+  isLoading: boolean;
+  children?: React.ReactNode;
 }
 
-export default function Wait({isLoading, children} : WaitProps){
-    if(isLoading){
-        return <CircularProgress />;
-    }
-    return <>{children}</>;
+export default function Wait({ isLoading, children }: WaitProps) {
+  if (isLoading) {
+    return <CircularProgress />;
+  }
+  return <>{children}</>;
 }
