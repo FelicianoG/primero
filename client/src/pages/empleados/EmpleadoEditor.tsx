@@ -2,21 +2,14 @@ import FormLabel from "@mui/material/FormLabel";
 import Card from "@mui/material/Card";
 import "../../style.css";
 import Button from "@mui/material/Button";
-
 import Grid from "@mui/material/Grid";
 import EmpleadoDataService from "../../services/empleado.service";
-
 import { useParams } from "react-router-dom";
-
 import { useQuery, useMutation } from "react-query";
 import { Box } from "@mui/material";
-
 import { useNavigate } from "react-router-dom";
-import Wait from "../../Components/Wait";
-import Form from "../../Components/Forms/Form";
-import CustomHiddenField from "../../Components/CustomHiddenField";
-import CustomSelect from "../../Components/CustomSelect";
-import CustomTextField from "../../Components/CustomTextField";
+import { Wait, CustomHiddenField, CustomSelect, CustomTextField } from "../../Components";
+import { Form } from "../../Components/Forms";
 
 export default function EmpleadoEditor(props: any) {
   const navegar = useNavigate();
