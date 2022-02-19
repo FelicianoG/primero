@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const empleadosRoutes = require("./app/routes/empleado.routes");
 const direccionesRoutes = require("./app/routes/direccion.routes");
+const productosRoutes = require("./app/routes/producto.routes");
 const port = 4500;
 
 // Mongo DB
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 
 app.use("/api/empleados", empleadosRoutes);
 app.use("/api/direcciones", direccionesRoutes);
+app.use("/api/productos", productosRoutes);
 
 app.get('/api/test', (req, res) => {
     res.send({message: "Hello World " + new Date()});
